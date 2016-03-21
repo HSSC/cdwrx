@@ -1,2 +1,4 @@
 # cdwrx
-RxNorm wrappers and tools
+
+Rx utilities and service wrappers.
+
