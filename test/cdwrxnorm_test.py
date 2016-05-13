@@ -44,6 +44,17 @@ class cdwrx_test(unittest.TestCase):
         #check that skip_coerce default is False
         assert get_props(1297400)['tty'] == u'SBD'
 
+    def test_populate_lookup(self):
+        from cdwlib import oradb, config
+        from rxnorm_wrappers import put_rxnorm_lookup
+        inpf = 'test/connect_db.conf'
+        cfg_parse = config.getConfigParser(inpf)
+        params = config.getConfigSectionMap(cfg_parse, 'dtdev')
+        dsn = '%s:%s/%s'% ( params['db_host'], params['port'], params['session_id'])
+        conn = oradb.oradb(dsn, params['user'])
+        if conn:
+            put_rxnorm_lookup(conn)
+
 
 if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(cdwrx_test)
